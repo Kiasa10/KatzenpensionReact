@@ -1,0 +1,19 @@
+.faqList {
+  border: 1px solid var(--purple-dark);
+  border-radius: 0.4rem;
+  width: 100%;
+  margin: auto;
+  box-shadow: 2px 2px 3px var(--shadow);
+}
+
+@media (min-width: 34.3rem) {
+  .faqList {
+    max-width: 80%;
+  }
+}
+
+@media (min-width: 62.5rem) {
+  .faqList {
+    max-width: 60%;
+  }
+}

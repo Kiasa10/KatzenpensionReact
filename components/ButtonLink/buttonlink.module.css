@@ -1,0 +1,38 @@
+.buttonlink {
+  color: white;
+  background-color: var(--purple-middle);
+  font: inherit;
+  font-size: small;
+  padding: 0.7rem 1rem;
+  border-radius: 0.4rem;
+  border: 0px;
+  box-shadow: 2px 2px 3px var(--shadow);
+}
+
+.buttonlink:hover,
+.buttonlink:active {
+  cursor: pointer;
+  animation: hoverButton 700ms ease-out;
+  animation-fill-mode: forwards;
+}
+
+.buttonlink:disabled {
+  background-color: var(--purple-middle);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (min-width: 34.3rem) {
+  .buttonlink {
+    font-size: medium;
+  }
+}
+
+@keyframes hoverButton {
+  from {
+    background-color: var(--purple-middle);
+  }
+  to {
+    background-color: var(--purple-light);
+  }
+}

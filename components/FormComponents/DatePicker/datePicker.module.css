@@ -1,0 +1,28 @@
+.formInput {
+  height: 2rem;
+  font-family: inherit;
+  font-size: large;
+  padding: 0 0.3rem;
+  margin-bottom: 2.675rem;
+}
+
+.formInput:focus {
+  background-color: var(--purple-pale);
+}
+
+.formBorder {
+  border: 1px solid var(--purple-middle);
+  border-radius: 0.3rem;
+  box-shadow: 2px 2px 3px var(--shadow);
+}
+
+@media (min-width: 14.75rem) {
+  .formInput {
+    margin-bottom: 1.48rem;
+  }
+}
+
+.hasError {
+  margin-bottom: 0;
+  border-color: red;
+}

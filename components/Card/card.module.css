@@ -1,0 +1,81 @@
+.card {
+  border: 1px solid var(--purple-dark);
+  width: 13rem;
+  height: 25rem;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 3px var(--shadow);
+}
+
+.card:hover,
+.card:active {
+  cursor: pointer;
+  background-color: var(--purple-pale);
+  scrollbar-color: var(--purple-dark) var(--purple-pale);
+}
+.card:hover .cardDescription,
+.card:active .cardDescription {
+  scrollbar-color: var(--purple-dark) var(--purple-pale);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.cardTitle {
+  color: var(--purple-middle);
+  margin: 0.4rem 0;
+  font-size: medium;
+}
+
+.cardTitle + p {
+  font-size: small;
+}
+
+.imgContainer {
+  position: relative;
+  height: 8rem;
+  width: auto;
+  margin: 1rem;
+  box-shadow: 2px 2px 3px var(--shadow);
+  border-radius: 1rem;
+}
+
+.cardImage {
+  display: flex;
+  justify-self: center;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.cardDescription {
+  margin: 1rem;
+  height: 9rem;
+  font-size: small;
+  overflow-y: auto;
+  scrollbar-color: var(--purple-dark) white;
+}
+
+@media (min-width: 23.6rem) {
+  .card {
+    width: 20rem;
+    height: 28rem;
+  }
+  .cardTitle {
+    font-size: larger;
+  }
+  .imgContainer {
+    height: 13rem;
+  }
+  .cardDescription {
+    height: 7.5rem;
+    font-size: medium;
+  }
+
+  .cardTitle + p {
+    font-size: medium;
+  }
+}

@@ -1,0 +1,52 @@
+.formBorder {
+  border: 1px solid var(--purple-middle);
+  border-radius: 0.3rem;
+  box-shadow: 2px 2px 3px var(--shadow);
+}
+
+.formTextarea {
+  height: 8rem;
+  max-height: 16rem;
+  width: 100%;
+  max-width: 20rem;
+  min-width: 10rem;
+  min-height: 5rem;
+  margin-bottom: 3.86rem;
+  font: inherit;
+  padding: 0.4rem;
+}
+
+.commentTextAreaWidth {
+  max-width: 30.75rem;
+}
+
+.formTextarea:focus {
+  background-color: var(--purple-pale);
+}
+
+@media (min-width: 15.3rem) {
+  .formTextarea {
+    margin-bottom: 2.67rem;
+  }
+}
+
+@media (min-width: 30.6rem) {
+  .formTextarea {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 48rem) {
+  .formTextarea {
+    width: 30.75rem;
+    max-width: 50rem;
+  }
+}
+
+@media (min-width: 62.5rem) {
+}
+
+.hasError {
+  border-color: red;
+  margin-bottom: 0;
+}

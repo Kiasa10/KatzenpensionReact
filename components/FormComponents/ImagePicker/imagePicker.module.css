@@ -1,0 +1,70 @@
+.pickerWrapper {
+  display: flex;
+  column-gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.67rem;
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0 1rem 0;
+}
+
+.preview {
+  position: relative;
+  width: 9.37rem;
+  height: 9.37rem;
+  border: 1px solid var(--purple-dark);
+  box-shadow: 2px 2px 3px var(--shadow);
+  border-radius: 1rem;
+}
+
+.customImage {
+  display: flex;
+  justify-self: center;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.customFileUpload {
+  border: 1px solid var(--purple-middle);
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  width: 9rem;
+  text-align: center;
+  background-color: #ccc;
+  border-radius: 0.4rem;
+  box-shadow: 2px 2px 3px var(--shadow);
+}
+
+.customFileUpload:hover,
+.customFileUpload:active {
+  animation: fileButton 900ms ease-out;
+}
+
+.upload {
+  display: none;
+}
+
+@media (min-width: 21.68rem) {
+  .pickerWrapper {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.hasError {
+  margin-bottom: 0;
+}
+
+@keyframes fileButton {
+  0% {
+    background-color: #ccc;
+  }
+  50% {
+    background-color: var(--purple-pale);
+  }
+  100% {
+    background-color: #ccc;
+  }
+}

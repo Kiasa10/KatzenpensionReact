@@ -1,0 +1,16 @@
+.createCommentContainer {
+  border: 2px solid var(--purple-dark);
+  border-radius: 1rem;
+  max-width: 35rem;
+  margin: 8rem auto 0 auto;
+}
+
+.commentFormHeader {
+  font-size: x-large;
+}
+
+@media (min-width: 23.6rem) {
+  .commentFormHeader {
+    font-size: xx-large;
+  }
+}

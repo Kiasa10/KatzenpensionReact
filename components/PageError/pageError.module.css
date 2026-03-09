@@ -1,0 +1,10 @@
+.error {
+  margin-top: 6rem;
+  text-align: center;
+  font-size: large;
+  color: var(--purple-dark);
+}
+
+.error h2 {
+  margin-bottom: 2rem;
+}

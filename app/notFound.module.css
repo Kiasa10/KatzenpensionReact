@@ -1,0 +1,16 @@
+.notFound {
+  margin-top: 6rem;
+  text-align: center;
+  font-size: large;
+  color: var(--purple-dark);
+}
+
+.notFound h2 {
+  margin-bottom: 2rem;
+}
+
+.notFoundImage {
+  margin-top: 4rem;
+  max-width: 35em;
+  transform: rotate(30deg);
+}

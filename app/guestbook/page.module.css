@@ -1,0 +1,12 @@
+.guestbook {
+  max-width: 35rem;
+  margin: auto;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

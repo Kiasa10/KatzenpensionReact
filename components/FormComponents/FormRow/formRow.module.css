@@ -1,0 +1,12 @@
+.formRow {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 0.5rem;
+}
+
+@media (min-width: 62.5rem) {
+  .formRow {
+    flex-wrap: nowrap;
+  }
+}

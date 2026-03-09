@@ -1,0 +1,44 @@
+.bookingForm {
+  padding: 0.3rem;
+}
+
+.formDates {
+  margin: 2rem 0 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 1rem;
+}
+
+.fieldsetWrapper {
+  margin-bottom: 1.5rem;
+}
+
+.careSection {
+  margin-top: 0.3rem;
+}
+
+.success {
+  color: rgb(64, 190, 64);
+  font-weight: 700;
+}
+
+.error {
+  color: red;
+}
+
+.placeholder {
+  visibility: hidden;
+}
+
+.success,
+.error,
+.placeholder {
+  height: 1.5rem;
+}
+
+@media (min-width: 23.6rem) {
+  .bookingForm {
+    padding: 0 2rem 2rem 2rem;
+  }
+}

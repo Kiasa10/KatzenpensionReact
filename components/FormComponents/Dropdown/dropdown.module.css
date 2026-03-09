@@ -1,0 +1,40 @@
+.formDropdown {
+  height: 2rem;
+  font-family: inherit;
+  font-size: large;
+  padding: 0 0.3rem;
+  margin-bottom: 3.86rem;
+  max-width: fit-content;
+}
+
+.formDropdown:focus {
+  background-color: var(--purple-pale);
+}
+
+.formBorder {
+  border: 1px solid var(--purple-middle);
+  border-radius: 0.3rem;
+  box-shadow: 2px 2px 3px var(--shadow);
+}
+
+@media (min-width: 18.6rem) {
+  .formDropdown {
+    margin-bottom: 2.675rem;
+  }
+}
+
+@media (min-width: 34.8rem) {
+  .formDropdown {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.isRoom {
+  margin-bottom: 2.675rem;
+  max-width: 100%;
+}
+
+.hasError {
+  border-color: red;
+  margin-bottom: 0rem;
+}

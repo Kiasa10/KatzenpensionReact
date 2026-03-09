@@ -1,0 +1,12 @@
+.formFieldset {
+  border: 1px solid var(--purple-middle);
+  border-radius: 0.4rem;
+  padding: 1rem 0 1rem 0;
+  max-width: 100%;
+}
+
+@media (min-width: 23.6rem) {
+  .formFieldset {
+    padding: 1rem;
+  }
+}

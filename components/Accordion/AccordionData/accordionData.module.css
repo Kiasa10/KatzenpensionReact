@@ -1,0 +1,8 @@
+.faqLink {
+  color: var(--purple-middle);
+  font-weight: 600;
+}
+
+.faqLink:hover {
+  color: var(--purple-light);
+}

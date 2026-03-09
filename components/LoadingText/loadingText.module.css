@@ -1,0 +1,18 @@
+.loadingText {
+  text-align: center;
+  animation: loading 1.2s ease-in-out infinite;
+  font-size: large;
+  margin-top: 6rem;
+}
+
+@keyframes loading {
+  0% {
+    color: var(--purple-dark);
+  }
+  50% {
+    color: var(--purple-light);
+  }
+  100% {
+    color: var(--purple-dark);
+  }
+}

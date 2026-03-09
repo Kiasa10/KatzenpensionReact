@@ -1,0 +1,54 @@
+.homeScreenHeader {
+  word-break: break-all;
+}
+.homescreen {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.imageContainer {
+  overflow: hidden;
+  border-radius: 50%;
+  height: 15rem;
+  width: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.introductionContainer {
+  width: 90%;
+}
+@media (min-width: 18.75rem) {
+  .homeScreenHeader {
+    word-break: normal;
+  }
+}
+@media (min-width: 23.6rem) {
+  .imageContainer {
+    height: 20rem;
+    width: 20rem;
+  }
+}
+
+@media (min-width: 34.3rem) {
+  .imageContainer {
+    height: 30rem;
+    width: 30rem;
+  }
+  .introductionContainer {
+    width: 50%;
+  }
+}
+
+@media (min-width: 62.5rem) {
+  .homescreen {
+    align-items: center;
+  }
+  .introductionContainer {
+    width: 30%;
+  }
+}

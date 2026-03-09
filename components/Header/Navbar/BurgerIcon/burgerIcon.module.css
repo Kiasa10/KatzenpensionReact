@@ -1,0 +1,50 @@
+.hamburger {
+  display: block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.hamburger:hover {
+  animation: hop 800ms;
+}
+
+.hamburger:hover .bar,
+.hamburger:active .bar {
+  background: var(--purple-light);
+}
+
+.bar {
+  position: absolute;
+  height: 0.12rem;
+  width: 1.87rem;
+  background: white;
+  border-radius: 0.12rem;
+}
+
+.bar:first-child {
+  top: 0.42rem;
+}
+.bar:nth-child(2) {
+  top: 0.87rem;
+}
+.bar:last-child {
+  top: 1.31rem;
+}
+
+@media (min-width: 62.5rem) {
+  .hamburger {
+    display: none;
+  }
+}
+
+@keyframes hop {
+  from {
+    transform: rotateZ(0);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}

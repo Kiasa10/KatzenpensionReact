@@ -1,0 +1,33 @@
+.formBorder {
+  border: 1px solid var(--purple-middle);
+  border-radius: 0.3rem;
+  box-shadow: 2px 2px 3px var(--shadow);
+}
+
+.formInput {
+  height: 2rem;
+  font-family: inherit;
+  font-size: large;
+  padding: 0 0.3rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.formCommentInput {
+  margin-bottom: 2.675rem;
+}
+
+.formInput:focus {
+  background-color: var(--purple-pale);
+}
+
+@media (min-width: 19.68rem) {
+  .formCommentInput {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.hasError {
+  border-color: red;
+  margin-bottom: 0;
+}

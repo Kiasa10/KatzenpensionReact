@@ -1,0 +1,23 @@
+.formCheckbox {
+  accent-color: var(--purple-middle);
+}
+
+.noError {
+  margin-bottom: 3.86rem;
+}
+
+.hasError {
+  margin-top: 0rem;
+}
+
+@media (min-width: 18.8rem) {
+  .noError {
+    margin-bottom: 2.67rem;
+  }
+}
+
+@media (min-width: 38.37rem) {
+  .noError {
+    margin-bottom: 1.48rem;
+  }
+}
