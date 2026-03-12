@@ -8,13 +8,14 @@ interface CardProps {
   imageUrl: string;
   alt: string;
   descriptionShort: string;
+  onClick: () => void;
 }
 
 const basePath = "/assets/images";
 
-export default function Card({ title, children, imageUrl, alt, descriptionShort }: CardProps) {
+export default function Card({ title, children, imageUrl, alt, descriptionShort, onClick }: CardProps) {
   return (
-    <article className={classes.card}>
+    <article className={classes.card} onClick={onClick}>
       <header className={classes.cardHeader}>
         <h3 className={classes.cardTitle}>{title}</h3>
         {children}

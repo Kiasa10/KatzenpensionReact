@@ -6,7 +6,17 @@ import CardGrid from "@/components/Card/CardGrid/CardGrid";
 import { Suspense } from "react";
 
 async function Guests() {
-  const guests = await getRegularGuests();
+  const receivedGuests = await getRegularGuests();
+  const guests = receivedGuests.map((entry) => {
+    const guest = {
+      name: entry.name,
+      age: entry.age,
+      imageUrl: entry.imageUrl,
+      descriptionShort: entry.descriptionShort,
+      descriptionLong: entry.descriptionLong,
+    };
+    return guest;
+  });
 
   return <CardGrid data={guests} />;
 }

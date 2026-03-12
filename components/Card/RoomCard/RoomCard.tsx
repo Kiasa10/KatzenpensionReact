@@ -1,16 +1,24 @@
-import { Rooms as Room } from "@/app/lib/models/room";
+"use client";
+
+import { Room } from "../CardGrid/CardGrid";
 import Card from "../Card";
+import { useState } from "react";
+import RoomModal from "@/components/Modal/RoomModal/RoomModal";
 
-interface RoomCardProps {
-  room: Room;
-}
+export default function RoomCard({ title, imageUrl, descriptionShort, cost, descriptionLong }: Room) {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleClick = () => {
+    setIsOpen(true);
+  };
 
-export default function RoomCard({ room }: RoomCardProps) {
   return (
-    <Card title={room.title} imageUrl={room.imageUrl} descriptionShort={room.descriptionShort} alt="Picture of room">
-      <p>
-        Preis pro Katze/Nacht: <span>{room.cost}</span>
-      </p>
-    </Card>
+    <>
+      <RoomModal open={isOpen} title={title} imageUrl={imageUrl} descriptionLong={descriptionLong} cost={cost} onClose={() => setIsOpen(false)} />
+      <Card title={title} imageUrl={imageUrl} descriptionShort={descriptionShort} alt="Picture of room" onClick={handleClick}>
+        <p>
+          Preis pro Katze/Nacht: <span>{cost}</span>
+        </p>
+      </Card>
+    </>
   );
 }

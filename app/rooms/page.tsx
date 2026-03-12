@@ -5,7 +5,18 @@ import { getRooms } from "@/app/lib/data/rooms";
 import { Suspense } from "react";
 
 async function RoomsGrid() {
-  const rooms = await getRooms();
+  const receivedRooms = await getRooms();
+
+  const rooms = receivedRooms.map((entry) => {
+    const room = {
+      title: entry.title,
+      cost: entry.cost,
+      imageUrl: entry.imageUrl,
+      descriptionShort: entry.descriptionShort,
+      descriptionLong: entry.descriptionLong,
+    };
+    return room;
+  });
   return <CardGrid data={rooms} />;
 }
 

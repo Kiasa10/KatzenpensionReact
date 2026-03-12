@@ -42,12 +42,10 @@
   margin: 1rem;
   box-shadow: 2px 2px 3px var(--shadow);
   border-radius: 1rem;
+  overflow: hidden;
 }
 
 .cardImage {
-  display: flex;
-  justify-self: center;
-  border-radius: 1rem;
   object-fit: cover;
 }
 

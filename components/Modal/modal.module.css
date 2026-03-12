@@ -1,0 +1,103 @@
+.modal {
+  margin: auto;
+  width: 15rem;
+  max-height: 100%;
+  background-color: #fff;
+  border: 1px solid var(--purple-dark);
+  border-radius: 1rem;
+  box-shadow: 2px 2px 3px var(--shadow);
+  z-index: 10;
+  overflow-y: auto;
+  scrollbar-color: var(--purple-dark) transparent;
+  animation: slide-up 400ms ease-out;
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.3);
+  animation: fade-in 400ms ease-out;
+}
+
+.modal:focus {
+  outline: none;
+}
+
+.modalContentWrapper {
+  padding: 1rem;
+}
+
+.imgContainer {
+  position: relative;
+  height: 10rem;
+  width: 100%;
+  box-shadow: 2px 2px 3px var(--shadow);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.modalImage {
+  object-fit: cover;
+}
+
+.title {
+  color: var(--purple-middle);
+  text-align: center;
+  margin: 1rem 0 1rem 0;
+}
+
+.additionalInfoSection {
+  font-style: italic;
+}
+
+.description {
+  margin: 1rem 0 1rem 0;
+}
+
+.modalControls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@media (min-width: 23.6rem) {
+  .modal {
+    width: 20rem;
+  }
+  .imgContainer {
+    height: 15rem;
+  }
+}
+
+@media (min-width: 34.3rem) {
+  .modal {
+    width: 30rem;
+  }
+}
+
+@media (min-width: 48rem) {
+  .modal {
+    width: 40rem;
+  }
+  .imgContainer {
+    height: 20rem;
+  }
+}

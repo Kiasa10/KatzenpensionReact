@@ -15,6 +15,9 @@
   animation: hoverButton 700ms ease-out;
   animation-fill-mode: forwards;
 }
+.buttonlink:focus {
+  outline: none;
+}
 
 .buttonlink:disabled {
   background-color: var(--purple-middle);
