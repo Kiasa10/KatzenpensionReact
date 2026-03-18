@@ -1,7 +1,7 @@
 .formFieldset {
   border: 1px solid var(--purple-middle);
   border-radius: 0.4rem;
-  padding: 1rem 0 1rem 0;
+  padding: 1rem 0.3rem 1rem 0.3rem;
   max-width: 100%;
 }
 

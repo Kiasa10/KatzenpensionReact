@@ -22,6 +22,9 @@ export default function Modal({ title, children, imageUrl, alt, descriptionLong,
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
+    //initial render = null, needs this for 2. render (not null -> document exists now)
+    setMounted(true);
+
     const dialog = dialogRef.current;
 
     if (!dialog) return;
@@ -32,10 +35,6 @@ export default function Modal({ title, children, imageUrl, alt, descriptionLong,
     }
   }, [open]);
 
-  //initial render = null, needs this for 2. render (not null -> document exists now)
-  useEffect(() => {
-    setMounted(true);
-  }, []);
   if (!mounted) return null;
 
   return createPortal(

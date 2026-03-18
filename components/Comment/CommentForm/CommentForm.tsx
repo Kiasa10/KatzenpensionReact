@@ -84,7 +84,7 @@ export default function CommentForm() {
         <FormRowItem>
           <Input
             name="author"
-            label="Author *"
+            label="Autor *"
             type="text"
             defValue={state.enteredValues?.author}
             onBlur={validate}

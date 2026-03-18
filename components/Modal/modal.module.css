@@ -22,11 +22,12 @@
 }
 
 .modalContentWrapper {
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .imgContainer {
   position: relative;
+  display: block;
   height: 10rem;
   width: 100%;
   box-shadow: 2px 2px 3px var(--shadow);
@@ -42,6 +43,7 @@
   color: var(--purple-middle);
   text-align: center;
   margin: 1rem 0 1rem 0;
+  font-size: medium;
 }
 
 .additionalInfoSection {
@@ -54,6 +56,7 @@
 
 .modalControls {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 1rem;
 }
@@ -85,11 +88,17 @@
   .imgContainer {
     height: 15rem;
   }
+  .modalContentWrapper {
+    padding: 1rem;
+  }
 }
 
 @media (min-width: 34.3rem) {
   .modal {
     width: 30rem;
+  }
+  .title {
+    font-size: x-large;
   }
 }
 
@@ -98,6 +107,6 @@
     width: 40rem;
   }
   .imgContainer {
-    height: 20rem;
+    height: 25rem;
   }
 }

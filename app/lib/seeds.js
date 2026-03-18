@@ -88,7 +88,7 @@ async function seedGuests() {
     {
       name: "Piki",
       age: 18,
-      imageUrl: "/regularGuests/Piki.jpeg",
+      imageUrl: "/regularGuests/Piki.png",
       descriptionShort: "Piki ist eine gemütliche, ruhige Katze. Sie liebt es in der Sonne zu baden und genießt die Wärme.",
       descriptionLong:
         "Piki ist eine sehr ruhige Zeitgenossin, die am liebsten draußen auf dem warmen Boden in der Sonne schlummert. Sie war früher eine begnadete Jägerin und hat zum Entsetzen ihrer Besitzerin eine lebendige Elster mit ins Wohnzimmer gebracht. Heute ist Piki viel ruhiger geworden und verlässt kaum noch den eigenen Garten. Wenn sie nicht draußen ist, liegt sie vermutlich in einem kuscheligen Bett und träumt von fremden Vogelarten.",
