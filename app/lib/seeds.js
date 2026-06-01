@@ -4,7 +4,6 @@ import RegularGuest from "./models/regular-guest.ts";
 import Comment from "./models/comment.ts";
 import Booking from "./models/booking.ts";
 import mongoose from "mongoose";
-import { error } from "console";
 import fs from "node:fs/promises";
 import path from "node:path";
 
@@ -138,7 +137,7 @@ async function clearBookings() {
   await dbConnect();
   await Booking.deleteMany({})
     .then(() => console.log("Bookings deleted"))
-    .catch((err) => console.log("Error deleting bookings", error));
+    .catch((error) => console.log("Error deleting bookings", error));
 }
 
 async function clearComments() {
