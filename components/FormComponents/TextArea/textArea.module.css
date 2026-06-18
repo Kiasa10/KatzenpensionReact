@@ -17,7 +17,7 @@
 }
 
 .commentTextAreaWidth {
-  max-width: 30.75rem;
+  max-width: 100%;
 }
 
 .formTextarea:focus {
@@ -41,9 +41,9 @@
     width: 30.75rem;
     max-width: 50rem;
   }
-}
-
-@media (min-width: 62.5rem) {
+  .commentTextAreaWidth {
+    max-width: 30.75rem;
+  }
 }
 
 .hasError {

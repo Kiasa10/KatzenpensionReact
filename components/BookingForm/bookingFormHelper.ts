@@ -43,8 +43,8 @@ export const currentDate = new Date().toISOString().substring(0, 10);
 
 const calcYear = new Date();
 calcYear.setDate(calcYear.getDate() + 365);
-
 export const oneYearFromNow = calcYear.toISOString().substring(0, 10);
+
 const calcDay = new Date();
 calcDay.setDate(calcDay.getDate() + 1);
 
@@ -66,6 +66,7 @@ export const calcTwoWeeksFunc = (startDate: string) => {
 
 export const theDayAfterStartFunc = (startDate: string) => {
   if (!startDate) return currentDate;
+
   const calcNextDay = new Date(startDate);
   if (isNaN(calcNextDay.getTime())) {
     const tomorrow = new Date();
@@ -75,46 +76,4 @@ export const theDayAfterStartFunc = (startDate: string) => {
   calcNextDay.setDate(calcNextDay.getDate() + 1);
   theDayAfterStart = calcNextDay.toISOString().substring(0, 10);
   return theDayAfterStart;
-};
-
-export const transformFormDataToPlainObject = (formData: FormData): Booking => {
-  const room = formData.get("room")?.toString() || "";
-  const firstDayRaw = formData.get("startDate")?.toString() || "";
-  const lastDayRaw = formData.get("endDate")?.toString() || "";
-  const firstName = formData.get("firstName")?.toString() || "";
-  const lastName = formData.get("lastName")?.toString() || "";
-  const street = formData.get("street")?.toString() || "";
-  const houseNumber = formData.get("houseNumber")?.toString() || "";
-  const postalCode = formData.get("postalCode")?.toString() || "";
-  const city = formData.get("city")?.toString() || "";
-  const email = formData.get("email")?.toString() || "";
-  const phoneNumber = formData.get("phoneNumber")?.toString() || "";
-  const catAmount = formData.get("catAmount")?.toString() || "";
-  const medication = formData.get("medication")?.toString() || "";
-  const vaccination = formData.get("vaccination") === "on";
-
-  const parsedCatAmount = parseInt(catAmount);
-
-  const booking = {
-    room,
-    firstDayRaw,
-    lastDayRaw,
-    contactInfo: {
-      firstName,
-      lastName,
-      street,
-      houseNumber,
-      postalCode,
-      city,
-      email,
-      phoneNumber,
-    },
-    catInfo: {
-      catAmount: parsedCatAmount,
-      medication,
-      vaccination,
-    },
-  };
-
-  return booking;
 };

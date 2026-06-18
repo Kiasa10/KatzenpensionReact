@@ -5,7 +5,7 @@ interface DropdownProps {
   label: string;
   name: string;
   required?: boolean;
-  defValue?: string | number;
+  value?: string;
   error?: string;
   isRoom?: boolean;
   onBlur?: (event: React.FocusEvent<HTMLSelectElement>) => void;
@@ -17,7 +17,7 @@ interface DropdownProps {
   }[];
 }
 
-export default function Dropdown({ label, name, required, defValue, data, error, isRoom, onBlur, onChange }: DropdownProps) {
+export default function Dropdown({ label, name, required, value, data, error, isRoom, onBlur, onChange }: DropdownProps) {
   let styles = `${classes.formBorder} ${classes.formDropdown}`;
   if (isRoom) {
     styles = styles + ` ${classes.isRoom}`;
@@ -31,7 +31,7 @@ export default function Dropdown({ label, name, required, defValue, data, error,
   return (
     <>
       <label htmlFor={name}>{label}</label>
-      <select name={name} id={name} className={styles} required={required} onBlur={onBlur} onChange={onChange} defaultValue={defValue ?? ""}>
+      <select name={name} id={name} className={styles} required={required} onBlur={onBlur} onChange={onChange} value={value}>
         <option value="" disabled>
           Bitte wählen
         </option>

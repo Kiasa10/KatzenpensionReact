@@ -1,13 +1,27 @@
-import dbConnect from "@/app/lib/mongodb";
-import Room, { Rooms } from "@/app/lib/models/room";
+interface Room {
+  title: string;
+  cost: string;
+  imageUrlReact: string;
+  descriptionShort: string;
+  descriptionLong: string;
+  catsPossible: number;
+}
 
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 export async function getRooms() {
-  await dbConnect();
-  const result = await Room.find<Rooms>({});
+  try {
+    const response = await fetch(`${baseUrl}/Room`, {
+      next: { revalidate: 0 },
+    });
 
-  const rooms = result.map((doc) => {
-    const room = JSON.parse(JSON.stringify(doc)) as Rooms;
-    return room;
-  });
-  return rooms;
+    if (!response.ok) {
+      throw new Error("Error loading rooms");
+    }
+
+    const rooms: Room[] = await response.json();
+    return rooms;
+  } catch (error) {
+    console.error("Network error or server down: ", error);
+    throw error;
+  }
 }

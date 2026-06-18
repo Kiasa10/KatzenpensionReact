@@ -4,7 +4,7 @@ import Error from "../Error/Error";
 interface TextAreaProps {
   name: string;
   label: string;
-  defValue?: string;
+  value: string;
   required?: boolean;
   isComment?: boolean;
   error?: string;
@@ -12,7 +12,7 @@ interface TextAreaProps {
   onBlur?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export default function TextArea({ name, label, defValue, required, isComment, error, onChange, onBlur }: TextAreaProps) {
+export default function TextArea({ name, label, value, required, isComment, error, onChange, onBlur }: TextAreaProps) {
   const textAreaClasses = [classes.formBorder, classes.formTextarea, isComment ? classes.commentTextAreaWidth : "", error ? classes.hasError : ""]
     .join(" ")
     .trim();
@@ -22,7 +22,7 @@ export default function TextArea({ name, label, defValue, required, isComment, e
       <textarea
         name={name}
         id={name}
-        defaultValue={defValue}
+        value={value}
         className={textAreaClasses}
         required={required}
         maxLength={500}

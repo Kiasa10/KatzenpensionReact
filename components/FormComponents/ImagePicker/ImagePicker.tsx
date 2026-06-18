@@ -9,10 +9,10 @@ interface ImagePickerProps {
   label: string;
   name: string;
   error?: string;
-  onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (file: File | undefined) => void;
 }
 
-export default function ImagePicker({ label, name, error, onBlur }: ImagePickerProps) {
+export default function ImagePicker({ label, name, error, onChange }: ImagePickerProps) {
   const [pickedImage, setPickedImage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,7 +26,10 @@ export default function ImagePicker({ label, name, error, onBlur }: ImagePickerP
 
     if (!file) {
       setPickedImage(null);
+      if (onChange) onChange(undefined);
     } else {
+      if (onChange) onChange(file);
+
       const fileReader = new FileReader();
       fileReader.onload = () => {
         setPickedImage(fileReader.result as string);
@@ -42,15 +45,7 @@ export default function ImagePicker({ label, name, error, onBlur }: ImagePickerP
           <label htmlFor={name} className={classes.customFileUpload}>
             {label}
           </label>
-          <input
-            type="file"
-            id={name}
-            name={name}
-            accept=".jpg, .jpeg, .png, .webp"
-            className={classes.upload}
-            onChange={handleImageChange}
-            onBlur={onBlur}
-          />
+          <input type="file" id={name} name={name} accept=".jpg, .jpeg, .png, .webp" className={classes.upload} onChange={handleImageChange} />
         </div>
         {pickedImage && (
           <div className={classes.preview}>

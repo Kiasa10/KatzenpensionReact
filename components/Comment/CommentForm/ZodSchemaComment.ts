@@ -5,5 +5,5 @@ export const NewCommentSchema = z.object({
   headline: textInputSchema,
   author: textInputSchema,
   comment: commentTextboxSchema,
-  image: imageSchema,
+  imageFile: imageSchema,
 });

@@ -1,13 +1,26 @@
-import dbConnect from "@/app/lib/mongodb";
-import RegularGuest, { Guest } from "../models/regular-guest";
+interface Guest {
+  name: string;
+  age: number;
+  imageUrlReact: string;
+  descriptionShort: string;
+  descriptionLong: string;
+}
 
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 export default async function getRegularGuests() {
-  await dbConnect();
-  const result = await RegularGuest.find<Guest>({});
-  const guests = result.map((doc) => {
-    const guest = JSON.parse(JSON.stringify(doc)) as Guest;
-    return guest;
-  });
+  try {
+    const response = await fetch(`${baseUrl}/RegularGuest`, {
+      next: { revalidate: 0 },
+    });
 
-  return guests;
+    if (!response.ok) {
+      throw new Error("Error loading guests");
+    }
+
+    const guests: Guest[] = await response.json();
+    return guests;
+  } catch (error) {
+    console.error("Network error or server down: ", error);
+    throw error;
+  }
 }

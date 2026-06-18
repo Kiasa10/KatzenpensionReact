@@ -17,7 +17,6 @@ import FormControls from "../FormComponents/FormControls/FormControls";
 import { createNewBooking } from "@/app/lib/data/bookingsActions";
 import { useActionState, useState, useEffect, useCallback } from "react";
 import { useBookingValidation } from "@/app/lib/useBookingValidation";
-import { transformFormDataToPlainObject } from "@/components/BookingForm/bookingFormHelper";
 import {
   rooms,
   catAmount,
@@ -30,18 +29,115 @@ import {
 import { bookingSchema } from "./ZodSchemaBooking";
 import z from "zod";
 
+interface ContactState {
+  firstName: string;
+  lastName: string;
+  street: string;
+  houseNumber: string;
+  postalCode: string;
+  city: string;
+  email: string;
+  phoneNumber: string;
+}
+
+interface CatState {
+  catAmount: string;
+  medication: string;
+  vaccination: boolean;
+}
+
+interface LocalFormState {
+  room: string;
+  startDate: string;
+  endDate: string;
+  contactInfo: ContactState;
+  catInfo: CatState;
+}
+
+const initialFormState: LocalFormState = {
+  room: "",
+  startDate: "",
+  endDate: "",
+  contactInfo: {
+    firstName: "",
+    lastName: "",
+    street: "",
+    houseNumber: "",
+    postalCode: "",
+    city: "",
+    email: "",
+    phoneNumber: "",
+  },
+  catInfo: {
+    catAmount: "",
+    medication: "",
+    vaccination: false,
+  },
+};
+
 export default function BookingForm() {
   const [state, dispatch, isPending] = useActionState(createNewBooking, { errors: {} });
-  const [startDate, setStartDate] = useState(state.enteredValues?.firstDayRaw || "");
+
+  const [startDate, setStartDate] = useState("");
   const [formKey, setFormKey] = useState(0);
   const [showSuccess, setShowSuccess] = useState(false);
+
   const { validationErrors, setValidationErrors, validate, initValidation } = useBookingValidation();
 
-  const serverResponseKey = JSON.stringify(state.errors) + (state.success ? "-success" : "");
+  const [formValues, setFormValues] = useState<LocalFormState>(initialFormState);
+
+  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+
+    setFormValues((prev) => {
+      if (name in prev.contactInfo) {
+        return {
+          ...prev,
+          contactInfo: { ...prev.contactInfo, [name]: value },
+        };
+      }
+      if (name in prev.catInfo) {
+        const checked = e.target instanceof HTMLInputElement ? e.target.checked : false;
+        return {
+          ...prev,
+          catInfo: {
+            ...prev.catInfo,
+            [name]: name === "vaccination" ? checked : value,
+          },
+        };
+      }
+      return { ...prev, [name]: value };
+    });
+    setValidationErrors((prev) => {
+      const hasMinThreeChars = ["firstName", "lastName", "street", "city", "phoneNumber"].includes(name);
+      const hasMinOneChars = ["houseNumber", "postalCode"].includes(name);
+      const isSelectionField = ["room", "startDate", "endDate", "catAmount"].includes(name);
+
+      if (hasMinThreeChars && value.trim().length >= 3) {
+        return { ...prev, [name]: "" };
+      }
+      if (hasMinOneChars && value.trim().length >= 1) {
+        return { ...prev, [name]: "" };
+      }
+      if (isSelectionField && value.trim() !== "") {
+        return { ...prev, [name]: "" };
+      }
+
+      if (name === "email") {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (emailRegex.test(value.trim())) {
+          return { ...prev, email: "" };
+        }
+      }
+
+      return prev;
+    });
+  };
 
   const handleReset = useCallback(() => {
     setValidationErrors(initValidation);
     setStartDate("");
+    setFormValues(initialFormState);
     setFormKey((prev) => prev + 1);
   }, [initValidation, setValidationErrors]);
 
@@ -54,7 +150,7 @@ export default function BookingForm() {
     }
   }, [state, handleReset]);
 
-  const backendMsg = state.errors?._form || state.errors?.catAmount || state.errors?.dates || state.errors?.room;
+  const backendMsg = state.errors?._form;
   let msgPlace;
   if (showSuccess) {
     msgPlace = <p className={classes.success}>Buchung erfolgreich</p>;
@@ -64,9 +160,20 @@ export default function BookingForm() {
     msgPlace = <p className={classes.placeholder}>Placeholder</p>;
   }
 
-  const formAction = (formData: FormData) => {
-    const transformedData = transformFormDataToPlainObject(formData);
-    const result = bookingSchema.safeParse(transformedData);
+  const formAction = () => {
+    const dataToValidate = {
+      room: formValues.room,
+      firstDay: formValues.startDate ? new Date(formValues.startDate) : undefined,
+      lastDay: formValues.endDate ? new Date(formValues.endDate) : undefined,
+      contactInfo: formValues.contactInfo,
+      catInfo: {
+        ...formValues.catInfo,
+        catAmount: formValues.catInfo.catAmount ? Number(formValues.catInfo.catAmount) : undefined,
+      },
+    };
+
+    const result = bookingSchema.safeParse(dataToValidate);
+    setValidationErrors(initValidation);
 
     if (!result.success) {
       const treefieldErrors = z.treeifyError(result.error);
@@ -74,24 +181,38 @@ export default function BookingForm() {
       const catInfoProps = treefieldErrors.properties?.catInfo?.properties;
 
       setValidationErrors({
-        room: treefieldErrors.properties?.room?.errors[0] || "",
-        startDate: treefieldErrors.properties?.firstDay?.errors[0] || "",
-        endDate: treefieldErrors.properties?.lastDay?.errors[0] || "",
-        firstName: contactProps?.firstName?.errors[0] || "",
-        lastName: contactProps?.lastName?.errors[0] || "",
-        street: contactProps?.street?.errors[0] || "",
-        houseNumber: contactProps?.houseNumber?.errors[0] || "",
-        postalCode: contactProps?.postalCode?.errors[0] || "",
-        city: contactProps?.city?.errors[0] || "",
-        email: contactProps?.email?.errors[0] || "",
-        phoneNumber: contactProps?.phoneNumber?.errors[0] || "",
-        catAmount: catInfoProps?.catAmount?.errors[0] || "",
-        medication: catInfoProps?.medication?.errors[0] || "",
-        vaccination: catInfoProps?.vaccination?.errors[0] || "",
+        room: treefieldErrors.properties?.room?.errors?.[0] || "",
+        startDate: treefieldErrors.properties?.firstDay?.errors?.[0] || "",
+        endDate: treefieldErrors.properties?.lastDay?.errors?.[0] || "",
+        firstName: contactProps?.firstName?.errors?.[0] || "",
+        lastName: contactProps?.lastName?.errors?.[0] || "",
+        street: contactProps?.street?.errors?.[0] || "",
+        houseNumber: contactProps?.houseNumber?.errors?.[0] || "",
+        postalCode: contactProps?.postalCode?.errors?.[0] || "",
+        city: contactProps?.city?.errors?.[0] || "",
+        email: contactProps?.email?.errors?.[0] || "",
+        phoneNumber: contactProps?.phoneNumber?.errors?.[0] || "",
+        catAmount: catInfoProps?.catAmount?.errors?.[0] || "",
+        medication: catInfoProps?.medication?.errors?.[0] || "",
+        vaccination: catInfoProps?.vaccination?.errors?.[0] || "",
       });
+
+      return;
     }
 
-    dispatch(transformedData);
+    const payload = {
+      room: formValues.room,
+      firstDayRaw: formValues.startDate,
+      lastDayRaw: formValues.endDate,
+      contactInfo: formValues.contactInfo,
+      catInfo: {
+        catAmount: Number(formValues.catInfo.catAmount),
+        medication: formValues.catInfo.medication,
+        vaccination: formValues.catInfo.vaccination,
+      },
+    };
+
+    dispatch(payload);
   };
 
   const calcTwoWeeks = calcTwoWeeksFunc(startDate) || oneYearFromNow;
@@ -102,15 +223,14 @@ export default function BookingForm() {
         <FormRowItem fixedSize>
           <Dropdown
             isRoom
-            key={`room-${serverResponseKey}`}
             label="Raum *"
             name="room"
-            defValue={state.enteredValues?.room}
+            value={formValues.room}
             data={rooms}
             error={validationErrors.room}
             required
             onBlur={validate}
-            onChange={validate}
+            onChange={handleFieldChange}
           />
         </FormRowItem>
         <FormRowItem fixedSize>
@@ -119,11 +239,12 @@ export default function BookingForm() {
             label="Erster Tag *"
             min={currentDate}
             max={oneYearFromNow}
-            defValue={state.enteredValues?.firstDayRaw}
+            value={formValues.startDate}
             required
             onChange={(e) => {
               setStartDate(e.target.value);
-              validate(e);
+
+              handleFieldChange(e);
             }}
             onBlur={validate}
             error={validationErrors.startDate}
@@ -135,8 +256,8 @@ export default function BookingForm() {
             label="Letzter Tag *"
             min={theDayAfterStart}
             max={calcTwoWeeks}
-            defValue={state.enteredValues?.lastDayRaw}
-            onChange={validate}
+            value={formValues.endDate}
+            onChange={handleFieldChange}
             onBlur={validate}
             required
             error={validationErrors.endDate}
@@ -152,9 +273,10 @@ export default function BookingForm() {
                 type="text"
                 name="firstName"
                 label="Vorname *"
-                defValue={state.enteredValues?.firstName}
+                value={formValues.contactInfo.firstName}
                 onBlur={validate}
                 error={validationErrors.firstName}
+                onChange={handleFieldChange}
                 required
               />
             </FormRowItem>
@@ -163,9 +285,10 @@ export default function BookingForm() {
                 type="text"
                 name="lastName"
                 label="Nachname *"
-                defValue={state.enteredValues?.lastName}
+                value={formValues.contactInfo.lastName}
                 onBlur={validate}
                 error={validationErrors.lastName}
+                onChange={handleFieldChange}
                 required
               />
             </FormRowItem>
@@ -176,9 +299,10 @@ export default function BookingForm() {
                 type="text"
                 name="street"
                 label="Straße *"
-                defValue={state.enteredValues?.street}
+                value={formValues.contactInfo.street}
                 onBlur={validate}
                 error={validationErrors.street}
+                onChange={handleFieldChange}
                 required
               />
             </FormRowItem>
@@ -187,9 +311,10 @@ export default function BookingForm() {
                 type="text"
                 name="houseNumber"
                 label="Hausnummer *"
-                defValue={state.enteredValues?.houseNumber}
+                value={formValues.contactInfo.houseNumber}
                 onBlur={validate}
                 error={validationErrors.houseNumber}
+                onChange={handleFieldChange}
                 isShortInput
                 required
               />
@@ -201,9 +326,10 @@ export default function BookingForm() {
                 type="text"
                 name="postalCode"
                 label="PLZ *"
-                defValue={state.enteredValues?.postalCode}
+                value={formValues.contactInfo.postalCode}
                 onBlur={validate}
                 error={validationErrors.postalCode}
+                onChange={handleFieldChange}
                 isShortInput
                 required
               />
@@ -213,9 +339,10 @@ export default function BookingForm() {
                 type="text"
                 name="city"
                 label="Stadt *"
-                defValue={state.enteredValues?.city}
+                value={formValues.contactInfo.city}
                 onBlur={validate}
                 error={validationErrors.city}
+                onChange={handleFieldChange}
                 required
               />
             </FormRowItem>
@@ -226,9 +353,10 @@ export default function BookingForm() {
                 type="email"
                 name="email"
                 label="E-Mail *"
-                defValue={state.enteredValues?.email}
+                value={formValues.contactInfo.email}
                 onBlur={validate}
                 error={validationErrors.email}
+                onChange={handleFieldChange}
                 required
               />
             </FormRowItem>
@@ -237,9 +365,10 @@ export default function BookingForm() {
                 type="text"
                 name="phoneNumber"
                 label="Telefonnummer *"
-                defValue={state.enteredValues?.phoneNumber}
+                value={formValues.contactInfo.phoneNumber}
                 onBlur={validate}
                 error={validationErrors.phoneNumber}
+                onChange={handleFieldChange}
                 required
               />
             </FormRowItem>
@@ -250,14 +379,13 @@ export default function BookingForm() {
         <Fieldset legend="Information zu Katze/n">
           <FormRowItem>
             <Dropdown
-              key={`catAmount-${serverResponseKey}`}
               label="Anzahl Katzen * "
               name="catAmount"
               data={catAmount}
-              defValue={state.enteredValues?.catAmount}
+              value={formValues.catInfo.catAmount}
               error={validationErrors.catAmount}
               onBlur={validate}
-              onChange={validate}
+              onChange={handleFieldChange}
               required
             />
           </FormRowItem>
@@ -267,20 +395,32 @@ export default function BookingForm() {
                 <TextArea
                   name="medication"
                   label="Bitte hier Name, Dosis und Einnahmezeitraum der Medikamente auflisten."
-                  defValue={state.enteredValues?.medication}
+                  value={formValues.catInfo.medication}
                   error={validationErrors.medication}
+                  onChange={handleFieldChange}
                   onBlur={validate}
                 ></TextArea>
               </FormRowItem>
             </div>
           </CareSection>
           <Checkbox
-            key={`vaccination-${serverResponseKey}`}
             label="Hiermit bestätige ich, dass alle abzugebenden Tiere bei folgender Medikation auf aktuellem Stand (nicht älter als 1 Jahr) sind: *"
             name="vaccination"
-            defValue={state.enteredValues?.vaccination}
-            required
-            onChange={validate}
+            checked={formValues.catInfo.vaccination}
+            onChange={(e) => {
+              handleFieldChange(e);
+              if (!e.target.checked) {
+                setValidationErrors((prev) => ({
+                  ...prev,
+                  vaccination: "Ihre Katze muss die erforderten Impfungen erhalten haben",
+                }));
+              } else {
+                setValidationErrors((prev) => ({
+                  ...prev,
+                  vaccination: "",
+                }));
+              }
+            }}
             error={validationErrors.vaccination}
           ></Checkbox>
           <DisplayList itemList={vaccList} />

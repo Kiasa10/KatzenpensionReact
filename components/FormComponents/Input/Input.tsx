@@ -6,14 +6,14 @@ interface InputProps {
   type: "text" | "email";
   name: string;
   required?: boolean;
-  defValue?: string;
+  value: string;
   error?: string;
   isComment?: boolean;
   isShortInput?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
-export default function Input({ label, type, name, required, defValue, onChange, onBlur, error, isComment, isShortInput }: InputProps) {
+export default function Input({ label, type, name, required, value, onChange, onBlur, error, isComment, isShortInput }: InputProps) {
   let inputSize = 30;
 
   if (isComment) {
@@ -41,7 +41,7 @@ export default function Input({ label, type, name, required, defValue, onChange,
         id={name}
         name={name}
         className={error ? `${styles} ${classes.hasError}` : `${styles}`}
-        defaultValue={defValue}
+        value={value}
         required={required}
         maxLength={max}
         minLength={min}

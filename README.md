@@ -18,13 +18,18 @@ Das Projekt "Katzenpension" wurde zum Üben von React als NextJS Projekt erstell
 
 Webseite starten:
 
-Es muss MongoDB installiert sein. SEEDS
--> mongod.exe starten
+Für dieses Projekt muss das Backend in asp.net core verwendet werden.
+https://github.com/Kiasa10/KatzenpensionBackendAspDotNet
+
+in Visual Studio:
+
+-> in Program.cs bei den CORS-Bedingungen sicherstellen, dass die React-Policy nicht kommentiert und
+die Angular-Policy auskommentiert ist.
+-> in Dev/DbSeeds.cs sicherstellen, dass die Methode "TriggerNextJsImageReset()" für React nicht kommentiert ist.
+-> Visual Studio starten
 
 in VS Code
 -> npm i
--> cd app/lib
--> node seeds.js
 -> npm run dev
 -> auf http://localhost:3000 gehen
 

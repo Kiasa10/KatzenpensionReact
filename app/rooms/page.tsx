@@ -11,7 +11,7 @@ async function RoomsGrid() {
     const room = {
       title: entry.title,
       cost: entry.cost,
-      imageUrl: entry.imageUrl,
+      imageUrl: entry.imageUrlReact,
       descriptionShort: entry.descriptionShort,
       descriptionLong: entry.descriptionLong,
     };

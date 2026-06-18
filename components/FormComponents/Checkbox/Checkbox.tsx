@@ -5,24 +5,16 @@ interface CheckboxProps {
   label: string;
   name: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  defValue?: boolean;
+  checked: boolean;
   required?: boolean;
   error?: string;
 }
 
-export default function Checkbox({ label, name, defValue, required, error, onChange }: CheckboxProps) {
+export default function Checkbox({ label, name, checked, required, error, onChange }: CheckboxProps) {
   return (
     <>
       <div className={error ? classes.hasError : classes.noError}>
-        <input
-          type="checkbox"
-          className={classes.formCheckbox}
-          id={name}
-          name={name}
-          required={required}
-          defaultChecked={defValue}
-          onChange={onChange}
-        />
+        <input type="checkbox" className={classes.formCheckbox} id={name} name={name} required={required} checked={checked} onChange={onChange} />
         <label htmlFor={name}>{label}</label>
       </div>
       {error && <Error error={error} />}

@@ -6,12 +6,12 @@ import { useState, useEffect } from "react";
 import { getComments } from "@/app/lib/data/comments";
 
 interface Comments {
-  _id: string;
+  id: string;
   date: Date;
   headline: string;
   author: string;
   content: string;
-  image?: string;
+  imagePath?: string;
 }
 
 interface CommentsProps {
@@ -57,8 +57,14 @@ export default function CommentList({ initialComments, sortOrder }: CommentsProp
       >
         {items.map((comment) => (
           <Comment
-            key={comment._id}
-            comment={{ date: comment.date, headline: comment.headline, author: comment.author, content: comment.content, imageSrc: comment.image }}
+            key={comment.id}
+            comment={{
+              date: comment.date,
+              headline: comment.headline,
+              author: comment.author,
+              content: comment.content,
+              imageSrc: comment.imagePath,
+            }}
           />
         ))}
       </InfiniteScroll>

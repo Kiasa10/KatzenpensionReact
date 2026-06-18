@@ -15,7 +15,11 @@ async function Comments({ sortOrder }: CommentsProps) {
 
   return (
     <div>
-      <CommentList key={sortOrder} initialComments={comments} sortOrder={sortOrder} />
+      {!comments || comments.length === 0 ? (
+        <LoadingText text="Noch keine Kommentare vorhanden." />
+      ) : (
+        <CommentList key={sortOrder} initialComments={comments} sortOrder={sortOrder} />
+      )}
     </div>
   );
 }

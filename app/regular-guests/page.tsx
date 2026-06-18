@@ -11,7 +11,7 @@ async function Guests() {
     const guest = {
       name: entry.name,
       age: entry.age,
-      imageUrl: entry.imageUrl,
+      imageUrl: entry.imageUrlReact,
       descriptionShort: entry.descriptionShort,
       descriptionLong: entry.descriptionLong,
     };

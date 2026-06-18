@@ -1,28 +1,8 @@
-import dbConnect from "@/app/lib/mongodb";
-import Booking, { Bookings } from "../models/booking";
 import { NewBooking } from "./bookingsActions";
 
-//für zukünftige funktionen (timeslot für raum x ist schon vergeben usw)
-export async function getBookings() {
-  dbConnect();
-  const result = await Booking.find<Bookings>({});
-  const bookings = result.map((doc) => {
-    //JSON.parse(JSON.stringify()) to convert Mongoose documents to plain objects, as Next.js requires serializable data.
-    const booking = JSON.parse(JSON.stringify(doc)) as Bookings;
-    const book = {
-      ...booking,
-      firstDay: new Date(booking.firstDay),
-      lastDay: new Date(booking.lastDay),
-    };
-
-    return book;
-  });
-  return bookings;
-}
-
-export async function postBooking(newBooking: NewBooking) {
-  await dbConnect();
-  const bookingToInsert = {
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+export const postBooking = async (newBooking: NewBooking) => {
+  const bookingToSend = {
     room: newBooking.room,
     firstDay: newBooking.firstDay,
     lastDay: newBooking.lastDay,
@@ -43,5 +23,15 @@ export async function postBooking(newBooking: NewBooking) {
     },
   };
 
-  await Booking.create(bookingToInsert);
-}
+  try {
+    await fetch(`${baseUrl}/Booking`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookingToSend),
+    });
+  } catch (error) {
+    console.error("Error at post-request booking: ", error);
+  }
+};
