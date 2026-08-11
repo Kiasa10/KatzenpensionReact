@@ -16,23 +16,6 @@ Das Projekt "Katzenpension" wurde zum Üben von React als NextJS Projekt erstell
 
     -> FAQ Hier findet man die am häufigsten gestellten Fragen, welche mit Hilfe eines Akkordeons dargestellt werden.
 
-Webseite starten:
-
-Für dieses Projekt muss das Backend in asp.net core verwendet werden.
-https://github.com/Kiasa10/KatzenpensionBackendAspDotNet
-
-in Visual Studio:
-
--> in Program.cs bei den CORS-Bedingungen sicherstellen, dass die React-Policy nicht kommentiert und
-die Angular-Policy auskommentiert ist.
--> in Dev/DbSeeds.cs sicherstellen, dass die Methode "TriggerNextJsImageReset()" für React nicht kommentiert ist.
--> Visual Studio starten
-
-in VS Code
--> npm i
--> npm run dev
--> auf http://localhost:3000 gehen
-
 Bildquellen:
 
     Favicon https://www.clipartmax.com/middle/m2H7d3d3A0m2K9m2_png-file-cat-icon-transparent-background/
@@ -46,3 +29,5 @@ Bildquellen:
     Zimmerbilder Bilder mit Hilfe von Bing Image Creator erstellt
 
 Anmerkung: Bilder wurden der Einfachheit halber im public Ordner gespeichert.
+
+Dieses Projekt ist auf Vercel gehostet: https://katzenpension-react.vercel.app/
