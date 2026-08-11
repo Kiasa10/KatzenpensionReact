@@ -39,7 +39,7 @@ export const createNewComment = async (prevState: FormStateComment, commentData:
       };
     }
 
-    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/JPEG", "image/PNG", "image/JPG", "image/WEBP"];
     if (!allowedTypes.includes(imageFile.type)) {
       return {
         errors: {

@@ -1,9 +1,9 @@
-//server action -> nextJS uses secure HTTP-Request instead of trying to execute Mongoose in the browser
 "use server";
 
-import fs from "node:fs/promises";
+//import fs from "node:fs/promises";
 import { NewComment } from "./commentActions";
-import { v4 as uuid } from "uuid";
+//import { v4 as uuid } from "uuid";
+import { put } from "@vercel/blob";
 
 interface Comment {
   id: string;
@@ -49,12 +49,21 @@ export async function getComments(page = 1, sortOrder: "asc" | "desc" = "asc", l
 export const postComment = async (newComment: NewComment) => {
   let imagePath = "";
   if (newComment.image && typeof newComment.image === "object" && newComment.image.size > 0) {
+    /*    
     const extension = newComment.image.name.split(".").pop();
     const fileName = `${uuid()}.${extension}`;
     const folderPath = "./public/userImages";
     const bufferedImage = await newComment.image.arrayBuffer();
     await fs.writeFile(`${folderPath}/${fileName}`, Buffer.from(bufferedImage));
     imagePath = `/userImages/${fileName}`;
+    */
+
+    //uploads directly to vercel blob
+    const blob = await put(newComment.image.name, newComment.image, {
+      access: "public",
+    });
+    //CDN-Url
+    imagePath = blob.url;
   }
 
   const commentToSend = {

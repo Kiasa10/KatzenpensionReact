@@ -1,0 +1,23 @@
+.authentication {
+  min-height: 100vh;
+  margin: auto;
+  width: 15rem;
+}
+
+@media (min-width: 23.6rem) {
+  .authentication {
+    width: 20rem;
+  }
+}
+
+@media (min-width: 34.3rem) {
+  .authentication {
+    width: 30rem;
+  }
+}
+
+@media (min-width: 48rem) {
+  .authentication {
+    width: 40rem;
+  }
+}

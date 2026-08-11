@@ -3,7 +3,7 @@ import Error from "../Error/Error";
 
 interface InputProps {
   label: string;
-  type: "text" | "email";
+  type: "text" | "email" | "password";
   name: string;
   required?: boolean;
   value: string;

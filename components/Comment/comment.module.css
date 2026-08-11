@@ -40,6 +40,10 @@
   color: var(--purple-middle);
 }
 
-.commentText {
+.commentTextContainer {
+  overflow-x: auto;
+  scrollbar-color: var(--purple-dark) white;
+  scrollbar-width: thin;
   margin: 0 1.3rem;
+  max-width: calc(100%-2.6rem);
 }

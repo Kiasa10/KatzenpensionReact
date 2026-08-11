@@ -34,7 +34,9 @@ export default function Comment(props: CommentProps) {
           <span>{author}</span> am <time>{formattedDate}</time>
         </p>
       </div>
-      <p className={classes.commentText}>{content}</p>
+      <div className={classes.commentTextContainer}>
+        <p>{content}</p>
+      </div>
     </article>
   );
 }

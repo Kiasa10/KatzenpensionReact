@@ -96,6 +96,7 @@ export default function BookingForm() {
           contactInfo: { ...prev.contactInfo, [name]: value },
         };
       }
+
       if (name in prev.catInfo) {
         const checked = e.target instanceof HTMLInputElement ? e.target.checked : false;
         return {
@@ -106,19 +107,23 @@ export default function BookingForm() {
           },
         };
       }
+
       return { ...prev, [name]: value };
     });
+
     setValidationErrors((prev) => {
       const hasMinThreeChars = ["firstName", "lastName", "street", "city", "phoneNumber"].includes(name);
-      const hasMinOneChars = ["houseNumber", "postalCode"].includes(name);
+      const hasMinOneChar = ["houseNumber", "postalCode"].includes(name);
       const isSelectionField = ["room", "startDate", "endDate", "catAmount"].includes(name);
 
       if (hasMinThreeChars && value.trim().length >= 3) {
         return { ...prev, [name]: "" };
       }
-      if (hasMinOneChars && value.trim().length >= 1) {
+
+      if (hasMinOneChar && value.trim().length >= 1) {
         return { ...prev, [name]: "" };
       }
+
       if (isSelectionField && value.trim() !== "") {
         return { ...prev, [name]: "" };
       }
@@ -243,7 +248,6 @@ export default function BookingForm() {
             required
             onChange={(e) => {
               setStartDate(e.target.value);
-
               handleFieldChange(e);
             }}
             onBlur={validate}

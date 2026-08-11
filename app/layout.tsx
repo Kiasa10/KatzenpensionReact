@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import AuthWrapper from "@/components/AuthWrapper/AuthWrapper";
 
 const montserratFont = Montserrat({
   subsets: ["latin"],
@@ -24,9 +25,11 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Katzenpension" />
       </head>
       <body className={montserratFont.className}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <AuthWrapper>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </AuthWrapper>
       </body>
     </html>
   );

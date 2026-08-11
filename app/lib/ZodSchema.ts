@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const maxSize = 5 * 1024 * 1024; //5MB
-const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
+const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/JPEG", "image/PNG", "image/JPG", "image/WEBP"];
 
 export const imageSchema = z
   .instanceof(File)
