@@ -15,8 +15,8 @@ export default function Footer() {
           Kontakt: <br />
           Telefon: 0676/123 45 67 <br />
           E-Mail:{" "}
-          <a className={classes.email} href="mailto:sonja.mueller@katzenpension.com">
-            sonja.mueller@katzenpension.com
+          <a className={classes.email} href="mailto:sonja.mueller@example.com">
+            sonja.mueller@example.com
           </a>
         </span>
       </div>
