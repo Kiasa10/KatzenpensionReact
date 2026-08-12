@@ -46,7 +46,7 @@ export async function getComments(page = 1, sortOrder: "asc" | "desc" = "asc", l
 
 export const postComment = async (newComment: NewComment) => {
   let imagePath = "";
-  if (newComment.image && typeof newComment.image === "object" && newComment.image.size > 0) {
+  if (newComment.image instanceof File && newComment.image.size > 0) {
     //uploads directly to vercel blob
     const blob = await put(newComment.image.name, newComment.image, {
       access: "public",

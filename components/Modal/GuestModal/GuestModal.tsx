@@ -12,7 +12,7 @@ export default function GuestModal({ name, age, imageUrl, descriptionLong, onClo
     <Modal
       title={name}
       imageUrl={imageUrl}
-      alt="Katzenfoto"
+      alt="Picture of guest"
       descriptionLong={descriptionLong}
       additionalInfo={age}
       additionalInfoText="Alter:"
